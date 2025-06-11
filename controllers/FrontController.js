@@ -80,10 +80,11 @@ class FrontController {
             const properties = await propertyModel.find().limit(4).sort({ createdAt: -1 });
             const categories = await categoryModel.find();
             const booking = await bookPropertyModel.findOne({
-                user: req.user?.id,     // Optional chaining
+                buyer: req.user?.id,     // Optional chaining
                 property: req.params.id
             });
-
+            console.log(booking)
+           
 
             const property = await propertyModel.findById(id);
             if (!property) {

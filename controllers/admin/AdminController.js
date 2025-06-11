@@ -5,17 +5,18 @@ const user = require("../../models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const flash = require("connect-flash");
-const sendMail = require('../../utils/sendMail');
-const bookingModel = require('../../models/bookProperty')
-const ExcelJS = require('exceljs');
-const PDFDocument = require('pdfkit');
-
-
+const sendMail = require("../../utils/sendMail");
+const bookingModel = require("../../models/bookProperty");
+const ExcelJS = require("exceljs");
+const PDFDocument = require("pdfkit");
+const mongoose = require("mongoose");
 
 class AdminController {
   static dashboard = async (req, res) => {
     try {
-      const { role, _id } = req.user;
+      const { role, id } = req.user;
+      console.log("USER DATA:", req.user);
+
 
       let data = {
         title: "Dashboard",
@@ -25,20 +26,31 @@ class AdminController {
 
       if (role === "admin") {
         data.totalProperties = await PropertyModel.countDocuments();
-        data.totalBookedProperties = await PropertyModel.countDocuments({ status: "booked" });
+        data.totalBookedProperties = await bookingModel.countDocuments({
+          status: "booked",
+        });
         data.totalUsers = await userModel.countDocuments();
         data.totalCategories = await CategoryModel.countDocuments();
-      }
+      } else if (role === "seller") {
+        const sellerId =
+          typeof _id === "string" ? new mongoose.Types.ObjectId(_id) : id;
 
-      else if (role === "seller") {
-        data.sellerPropertiesCount = await PropertyModel.countDocuments({ seller: _id });
-        data.sellerBookingsCount = await bookingModel.countDocuments({ seller: _id });
-      }
-
-      else if (role === "buyer") {
-        data.buyerBookingsCount = await bookingModel.countDocuments({ user: _id });
+        data.sellerPropertiesCount = await PropertyModel.countDocuments({
+          seller: sellerId,
+        });
+        data.sellerBookingsCount = await bookingModel.countDocuments({
+          seller: sellerId,
+        });
+        console.log("Seller ID:", sellerId);
+        const check = await PropertyModel.find({ seller: sellerId });
+        console.log("Found Properties:", check.length);
+      } else if (role === "buyer") {
+        data.buyerBookingsCount = await bookingModel.countDocuments({
+          user: _id,
+        });
         // data.buyerFavoritesCount = await FavoriteModel.countDocuments({ user: _id });
       }
+      console.log(data);
 
       res.render("admin/dashboard", data);
     } catch (error) {
@@ -46,7 +58,6 @@ class AdminController {
       res.redirect("/error");
     }
   };
-  
 
   static logout = async (req, res) => {
     try {
@@ -169,24 +180,22 @@ class AdminController {
     }
   };
 
-
   static async viewSellers(req, res) {
     try {
-      const sellers = await userModel.find({ role: 'seller' });
-      const buyers = await userModel.find({ role: 'buyer' });
-      res.render('admin/sellers', {
+      const sellers = await userModel.find({ role: "seller" });
+      const buyers = await userModel.find({ role: "buyer" });
+      res.render("admin/sellers", {
         sellers,
         buyers,
-        success: req.flash('success'),
-        error: req.flash('error')
+        success: req.flash("success"),
+        error: req.flash("error"),
       });
     } catch (error) {
       console.log(error);
       res.status(500).send("Internal Server Error");
     }
   }
-  
-  
+
   static async approveSeller(req, res) {
     try {
       const seller = await userModel.findByIdAndUpdate(
@@ -198,14 +207,14 @@ class AdminController {
       // Send Approval Email
       await sendMail(
         seller.email,
-        'Your Seller Account is Approved!',
+        "Your Seller Account is Approved!",
         `<h2>Hello ${seller.name},</h2>
         <p>Your seller account has been approved! 🎉</p>
         <p>You can now login and manage your properties on REAL E-STATE.</p>
         <a href="http://yourdomain.com/login">Click here to login</a>`
       );
 
-      res.redirect('/admin/manage_sellers');
+      res.redirect("/admin/manage_sellers");
     } catch (error) {
       console.log(error);
       res.status(500).send("Internal Server Error");
@@ -220,7 +229,7 @@ class AdminController {
       if (seller) {
         await sendMail(
           seller.email,
-          'Your Seller Account was Rejected',
+          "Your Seller Account was Rejected",
           `<h2>Hello ${seller.name},</h2>
           <p>Unfortunately, your seller account request has been rejected.</p>
           <p>If you believe this is a mistake, feel free to contact us.</p>`
@@ -229,7 +238,7 @@ class AdminController {
 
       await userModel.findByIdAndDelete(req.params.id);
 
-      res.redirect('/admin/manage_sellers');
+      res.redirect("/admin/manage_sellers");
     } catch (error) {
       console.log(error);
       res.status(500).send("Internal Server Error");
@@ -239,111 +248,115 @@ class AdminController {
   static async deleteUser(req, res) {
     try {
       await userModel.findByIdAndDelete(req.params.id);
-      req.flash('success', 'User deleted successfully');
-      res.redirect('/admin/manage_users');
+      req.flash("success", "User deleted successfully");
+      res.redirect("/admin/manage_users");
     } catch (error) {
       console.log(error);
-      req.flash('error', 'Something went wrong');
-      res.redirect('/admin/manage_users');
+      req.flash("error", "Something went wrong");
+      res.redirect("/admin/manage_users");
     }
   }
-
 
   static async viewBookedProperties(req, res) {
     try {
       const bookings = await bookingModel
         .find()
-        .populate('userId')      // assuming you store the user
-        .populate('propertyId'); // assuming you store the property
-  
-      res.render('admin/booked_properties', {
+        .populate("buyer") // assuming you store the user
+        .populate("property") // assuming you store the property
+        .populate("seller");
+      // console.log(bookings)
+
+      res.render("admin/booked_properties", {
         bookings,
-        success: req.flash('success'),
-        error: req.flash('error')
+        success: req.flash("success"),
+        error: req.flash("error"),
       });
     } catch (error) {
       console.log(error);
-      res.status(500).send("Internal Server Error");
     }
   }
-
 
   static async viewSellerBookings(req, res) {
     try {
       const sellerId = req.user.id; // logged-in seller
-  
-      const bookings = await bookingModel.find()
+
+      const bookings = await bookingModel
+        .find()
         .populate({
-          path: 'property',
+          path: "property",
           match: { seller: sellerId }, // सिर्फ उसी seller की properties
-          populate: { path: 'category' } // extra info if needed
+          populate: { path: "category" }, // extra info if needed
         })
-        .populate('user') // booked by user
+        .populate("buyer") // booked by user
         .exec();
-  
+
       // Null properties को filter करें — जो match नहीं हुईं
-      const sellerBookings = bookings.filter(b => b.property !== null);
-  
-      res.render('admin/seller/bookings', {
+      const sellerBookings = bookings.filter((b) => b.property !== null);
+
+      res.render("admin/seller/bookings", {
         bookings: sellerBookings,
-        title: 'My Property Bookings'
+        title: "My Property Bookings",
       });
     } catch (err) {
       console.log(err);
-      res.status(500).send('Server Error');
+      res.status(500).send("Server Error");
     }
   }
 
-
-  static exportBookingsExcel =async(req,res)=>{
+  static exportBookingsExcel = async (req, res) => {
     try {
-      const bookings = await bookingModel.find().populate('user property');
-  
+      const bookings = await bookingModel.find().populate("user property");
+
       const workbook = new ExcelJS.Workbook();
-      const worksheet = workbook.addWorksheet('Bookings');
-  
+      const worksheet = workbook.addWorksheet("Bookings");
+
       // Define Columns
       worksheet.columns = [
-        { header: 'User Name', key: 'user', width: 30 },
-        { header: 'Property', key: 'property', width: 30 },
-        { header: 'Booking Date', key: 'date', width: 20 },
-        { header: 'Status', key: 'status', width: 15 },
+        { header: "User Name", key: "user", width: 30 },
+        { header: "Property", key: "property", width: 30 },
+        { header: "Booking Date", key: "date", width: 20 },
+        { header: "Status", key: "status", width: 15 },
       ];
-  
+
       // Add rows
-      bookings.forEach(booking => {
+      bookings.forEach((booking) => {
         worksheet.addRow({
           user: booking.user?.name,
           property: booking.property?.title,
           date: booking.createdAt.toDateString(),
-          status: booking.status
+          status: booking.status,
         });
       });
-  
-      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-      res.setHeader('Content-Disposition', 'attachment; filename=bookings.xlsx');
-  
+
+      res.setHeader(
+        "Content-Type",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      );
+      res.setHeader(
+        "Content-Disposition",
+        "attachment; filename=bookings.xlsx"
+      );
+
       await workbook.xlsx.write(res);
       res.end();
     } catch (err) {
       console.error(err);
-      res.status(500).send('Error generating Excel');
+      res.status(500).send("Error generating Excel");
     }
-  }
-
+  };
 
   static exportBookingsPDF = async (req, res) => {
     try {
-      const bookings = await bookingModel.find().populate('user property');
-  
+      const bookings = await bookingModel.find().populate("user property");
+
       const doc = new PDFDocument();
-      res.setHeader('Content-Type', 'application/pdf');
-      res.setHeader('Content-Disposition', 'attachment; filename=bookings.pdf');
-  
+      res.setHeader("Content-Type", "application/pdf");
+      res.setHeader("Content-Disposition", "attachment; filename=bookings.pdf");
+
       doc.pipe(res);
-      doc.fontSize(18).text('Booking Report', { align: 'center' });
+      doc.fontSize(18).text("Booking Report", { align: "center" });
       doc.moveDown();
-  
+
       bookings.forEach((b, i) => {
         doc
           .fontSize(12)
@@ -353,15 +366,12 @@ class AdminController {
           .text(`   Status: ${b.status}`)
           .moveDown();
       });
-  
+
       doc.end();
     } catch (err) {
       console.error(err);
-      res.status(500).send('Error generating PDF');
+      res.status(500).send("Error generating PDF");
     }
   };
-  
-  
-  
 }
 module.exports = AdminController;

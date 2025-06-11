@@ -40,11 +40,11 @@
                   <% bookings.forEach((b, i) => { %>
                     <tr>
                       <td><%= i+1 %></td>
-                      <td><%= b.property?.title || 'Deleted Property' %></td>
-                      <td><%= b.user?.name %></td>
-                      <td><%= b.phone %></td>
+                      <td><%= b.property?.name || 'Deleted Property' %></td>
+                      <td><%= b.buyer?.name %></td>
+                      <td><%= b.buyer?.phone %></td>
                       <td><%= b.message %></td>
-                      <td><%= b.bookedAt.toLocaleDateString() %></td>
+                      <td><%= b.bookingDate.toLocaleDateString() %></td>
                     </tr>
                   <% }) %>
                 </tbody>

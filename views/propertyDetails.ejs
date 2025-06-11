@@ -37,7 +37,7 @@
 									</li>
 									<li><span class="icon fa-regular fa-comment-dots fa-fw"></span>03 Comments</li>
 								</ul>
-								<h3 class="property-detail_heading">Best House for living with family member</h3>
+								<h3 class="property-detail_heading"><%= p.name %></h3>
 								<div class="property-detail_location"><i class="flaticon-maps-and-flags"></i>
 									<%= p.address %>
 								</div>
@@ -342,30 +342,31 @@
 														  
 															<!-- Submit Button Based on Login & Booking -->
 															<div class="form-group">
-															  <% if (name) { %>
-																<% if (alreadyBooked) { %>
-																  <button type="button" class="theme-btn btn-style-one w-100" disabled>
-																	<span class="btn-wrap">
-																	  <span class="text-one">Already Booked</span>
-																	  <span class="text-two">Already Booked</span>
-																	</span>
-																  </button>
-																<% } else { %>
-																  <button type="submit" class="theme-btn btn-style-one w-100">
-																	<span class="btn-wrap">
-																	  <span class="text-one">Send Message</span>
-																	  <span class="text-two">Send Message</span>
-																	</span>
-																  </button>
-																<% } %>
-															  <% } else { %>
-																<a href="/login" class="theme-btn btn-style-one w-100">
-																  <span class="btn-wrap text-center">
-																	<span class="text-one">Login</span>
-																	<span class="text-two">Login</span>
-																  </span>
-																</a>
-															  <% } %>
+																<% if (name) { %>         <!-- User logged in -->
+																	<% if (alreadyBooked) { %>
+																	  <button type="button" class="theme-btn btn-style-one w-100" disabled>
+																		<span class="btn-wrap">
+																		  <span class="text-one">Already Booked</span>
+																		  <span class="text-two">Already Booked</span>
+																		</span>
+																	  </button>
+																	<% } else { %>
+																	  <button type="submit" class="theme-btn btn-style-one w-100">
+																		<span class="btn-wrap">
+																		  <span class="text-one">Send Message</span>
+																		  <span class="text-two">Send Message</span>
+																		</span>
+																	  </button>
+																	<% } %>
+																  <% } else { %>           <!-- User not logged in -->
+																	<a href="/login" class="theme-btn btn-style-one w-100">
+																	  <span class="btn-wrap text-center">
+																		<span class="text-one">Login</span>
+																		<span class="text-two">Login</span>
+																	  </span>
+																	</a>
+																  <% } %>
+																  
 															</div>
 														  </form>
 														  

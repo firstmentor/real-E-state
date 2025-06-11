@@ -28,28 +28,31 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Property</th>
-                  <th>Booked By</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Booking Date</th>
-                  <th>Status</th>
+                <th>Property</th>
+                <th>Buyer</th>
+                <th>Seller</th>
+                <th>Booking Date</th>
+                <th>Status</th>
+                <th>Message</th>
+                <th>Invoice</th>
                 </tr>
               </thead>
               <tbody>
-                <% bookings.forEach((booking, index) => { %>
+                <% bookings.forEach((b, index) => { %>
                   <tr>
                     <td><%= index + 1 %></td>
-                    <td><%= booking.propertyId?.title || 'N/A' %></td>
-                    <td><%= booking.userId?.name || 'N/A' %></td>
-                    <td><%= booking.userId?.email || 'N/A' %></td>
-                    <td><%= booking.userId?.phone || 'N/A' %></td>
-                    <td><%= booking.createdAt.toLocaleDateString() %></td>
+                    <td><%= b.property?.name || 'N/A' %></td>
+                    <td><%= b.buyer?.name %> (<%= b.buyer?.email %>)</td>
+                    <td><%= b.seller?.name %> (<%= b.seller?.email %>)</td>
+                    <td><%= new Date(b.bookingDate).toDateString() %></td>
+                    <td><%= b.status || 'Pending' %></td>
+                    <td><%= b.message || 'N/A' %></td>
                     <td>
-                      <span class="badge bg-success">Booked</span>
+                      <a href="/buyer/invoice/<%= b._id %>" class="btn btn-info btn-sm" target="_blank">View</a>
+                      <a href="/buyer/invoice-download/<%= b._id %>" class="btn btn-success btn-sm">PDF</a>
                     </td>
                   </tr>
-                <% }); %>
+                <% }) %>
               </tbody>
             </table>
           <% } else { %>

@@ -22,15 +22,21 @@ const propertyBookSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['Pending', 'Confirmed', 'Cancelled'], // ✔️ Clearly defined options
+    enum: ['Pending', 'Confirmed', 'Cancelled'], // status options
     default: 'Confirmed'
   },
   message: {
-    type: String
+    type: String,
+   
   }
 }, {
-  timestamps: true
+  timestamps: true // adds createdAt and updatedAt
 });
+
+// Optional: index for better performance on queries
+propertyBookSchema.index({ buyer: 1 });
+propertyBookSchema.index({ seller: 1 });
+propertyBookSchema.index({ property: 1 });
 
 const PropertyBook = mongoose.model('PropertyBook', propertyBookSchema);
 module.exports = PropertyBook;
