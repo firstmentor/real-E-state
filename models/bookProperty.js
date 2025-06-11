@@ -1,42 +1,35 @@
 const mongoose = require('mongoose');
 
 const propertyBookSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'user', // Reference to User model
-    required: true
-  },
-  name: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  phone: {
-    type: String,
-    required: true,
-    trim: true
-  },
-  message: {
-    type: String,
-    required: true,
-    trim: true
-  },
   property: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'property', // Reference to Property model
+    ref: 'property',
     required: true
   },
-  bookedAt: {
+  buyer: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true
+  },
+  seller: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
+    required: true
+  },
+  bookingDate: {
     type: Date,
     default: Date.now
   },
   status: {
     type: String,
-    enum: ['booked', 'cancelled', 'pending'],
-    default: 'booked'
+    enum: ['Pending', 'Confirmed', 'Cancelled'], // ✔️ Clearly defined options
+    default: 'Confirmed'
+  },
+  message: {
+    type: String
   }
 }, {
-  timestamps: true // automatically adds createdAt and updatedAt
+  timestamps: true
 });
 
 const PropertyBook = mongoose.model('PropertyBook', propertyBookSchema);

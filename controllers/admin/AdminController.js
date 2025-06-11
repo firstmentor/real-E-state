@@ -37,7 +37,7 @@ class AdminController {
 
       else if (role === "buyer") {
         data.buyerBookingsCount = await bookingModel.countDocuments({ user: _id });
-        data.buyerFavoritesCount = await FavoriteModel.countDocuments({ user: _id });
+        // data.buyerFavoritesCount = await FavoriteModel.countDocuments({ user: _id });
       }
 
       res.render("admin/dashboard", data);

@@ -21,6 +21,7 @@
     "express": "^5.1.0",
     "express-fileupload": "^1.5.1",
     "express-session": "^1.18.1",
+    "html-pdf-node": "^1.0.8",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.14.2",
     "nodemailer": "^7.0.3",

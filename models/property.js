@@ -53,9 +53,9 @@ const PropertySchema = new mongoose.Schema(
       },
     },
     status: {
-        type: String,
-        enum: ["Available", "Booked"],
-        default: "Available"
+      type: String,
+      enum: ['Pending', 'Available', 'Booked', 'Sold'], // add "Booked"
+      default: 'Available'
     },
     bookedBy: {
         type: String, // future: mongoose.Schema.Types.ObjectId for user reference

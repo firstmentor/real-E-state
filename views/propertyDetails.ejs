@@ -329,71 +329,46 @@
 
 												<% } %>
 													<div class="message-form">
-														<form method="post" action="/bookProperty">
-
-															<input type="hidden" name="propertyId" value="<%= p._id %>">
-
-															<!-- Form Group -->
+														<form action="/property_book" method="POST">
+															<!-- Hidden Property ID -->
+															<input type="hidden" name="property" value="<%= p._id %>">
+														  
+															<!-- Optional: Seller ID (or you can find in backend using property.owner) -->
+														  
+															<!-- Optional message from buyer -->
 															<div class="form-group">
-																<input type="text" name="name" placeholder="Name*"
-																	required <%=!user ? 'disabled' : '' %>
-																>
+															  <textarea name="message" placeholder="Write a message to seller..." class="form-control"></textarea>
 															</div>
-
-															<!-- Form Group -->
+														  
+															<!-- Submit Button Based on Login & Booking -->
 															<div class="form-group">
-																<input type="text" name="phone" placeholder="phone*"
-																	required <%=!user ? 'disabled' : '' %>
-																>
+															  <% if (name) { %>
+																<% if (alreadyBooked) { %>
+																  <button type="button" class="theme-btn btn-style-one w-100" disabled>
+																	<span class="btn-wrap">
+																	  <span class="text-one">Already Booked</span>
+																	  <span class="text-two">Already Booked</span>
+																	</span>
+																  </button>
+																<% } else { %>
+																  <button type="submit" class="theme-btn btn-style-one w-100">
+																	<span class="btn-wrap">
+																	  <span class="text-one">Send Message</span>
+																	  <span class="text-two">Send Message</span>
+																	</span>
+																  </button>
+																<% } %>
+															  <% } else { %>
+																<a href="/login" class="theme-btn btn-style-one w-100">
+																  <span class="btn-wrap text-center">
+																	<span class="text-one">Login</span>
+																	<span class="text-two">Login</span>
+																  </span>
+																</a>
+															  <% } %>
 															</div>
-
-															<!-- Form Group -->
-															<div class="form-group">
-																<textarea required name="message" placeholder="Message"
-																	<%=!user ? 'disabled' : '' %>>
-																</textarea>
-															</div>
-
-															<!-- Button -->
-															<div class="form-group">
-																<% if (user) { %>
-																	<% if (alreadyBooked) { %>
-																		<button type="button"
-																			class="theme-btn btn-style-one w-100"
-																			disabled>
-																			<span class="btn-wrap">
-																				<span class="text-one">Already
-																					Booked</span>
-																				<span class="text-two">Already
-																					Booked</span>
-																			</span>
-																		</button>
-																		<% } else { %>
-																			<button type="submit"
-																				class="theme-btn btn-style-one w-100">
-																				<span class="btn-wrap">
-																					<span class="text-one">Send
-																						Message</span>
-																					<span class="text-two">Send
-																						Message</span>
-																				</span>
-																			</button>
-																			<% } %>
-																				<% } else { %>
-																					<a href="\login"
-																						class="theme-btn btn-style-one w-100">
-																						<span
-																							class="btn-wrap text-center">
-																							<span
-																								class="text-one">Login</span>
-																							<span
-																								class="text-two">Login</span>
-																						</span>
-																					</a>
-																					<% } %>
-															</div>
-                                                        </form>	
-
+														  </form>
+														  
 													</div>
 								</div><br><br>
 

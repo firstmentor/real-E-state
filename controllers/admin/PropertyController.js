@@ -34,7 +34,7 @@ class PropertyController {
                 , bedrooms, beds, squarefit
             } =
                 req.body;
-            console.log(req.body)
+            // console.log(req.body)
             const file = req.files.image;
             // console.log(file);
             //image upload cloudinary
@@ -53,12 +53,14 @@ class PropertyController {
                 bedrooms:bedrooms,
                 beds:beds,
                 squarefit:squarefit,
+                seller:req.user.id,
                 image: {
                     public_id: imageUpload.public_id,
                     url: imageUpload.secure_url,
                 },
             });
             await result.save();
+            req.flash('success','property Insert Successfully')
 
             res.redirect("/property/display");
         } catch (error) {

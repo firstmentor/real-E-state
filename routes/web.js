@@ -111,10 +111,12 @@ route.get('/admin/property/delete/:id', checkAuth, PropertyController.deleteprop
 
 
 ///book property
-route.get('/admin/property_book', checkAuth, PropertyBookController.book_Property)
+route.post('/property_book', checkAuth, PropertyBookController.bookProperty)
+route.get('/buyer/my-bookings', checkAuth, PropertyBookController.book_Property_display)
 // routes/admin.js (or wherever your routes are)
-route.get('/delete_book_property/:id', PropertyBookController.delete_Book_Property);
-route.post('/admin/delete_book_property/:id', PropertyBookController.delete_Book_Property);
+route.post('/buyer/delete-booking/:id', checkAuth, PropertyBookController.deleteBooking);
+route.get('/buyer/invoice/:id', checkAuth, PropertyBookController.viewInvoice);
+route.get('/buyer/invoice-download/:id', checkAuth, PropertyBookController.downloadInvoice);
 
 
 
