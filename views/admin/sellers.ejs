@@ -1,0 +1,135 @@
+<%- include('./navbar.ejs') %>
+<%- include('./sidebar.ejs') %>
+
+<div class="content-wrapper">
+  <!-- Header -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">Manage Sellers /Buyers</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">Admin</a></li>
+            <li class="breadcrumb-item active">Manage Sellers & Buyers</li>
+          </ol>
+        </div>
+      </div>
+      <hr />
+    </div>
+  </div>
+
+  <!-- Flash Messages -->
+  <div class="content">
+    <div class="container-fluid">
+      <% if (error && error.length > 0) { %>
+        <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+      <% if (success && success.length > 0) { %>
+        <div class="alert alert-success"><%= success %></div>
+      <% } %>
+
+      <!-- Sellers Section -->
+      <div class="card mb-4">
+        <div class="card-header bg-info text-white">
+          <h3 class="card-title">Sellers</h3>
+        </div>
+        <div class="card-body">
+          <% if (sellers.length > 0) { %>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Status</th>
+                  <th>Registered On</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% sellers.forEach((seller, index) => { %>
+                  <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= seller.name %></td>
+                    <td><%= seller.email %></td>
+                    <td><%= seller.phone %></td>
+                    <td>
+                      <% if (seller.isApproved) { %>
+                        <span class="badge bg-success">Approved</span>
+                      <% } else { %>
+                        <span class="badge bg-warning text-dark">Pending</span>
+                      <% } %>
+                    </td>
+                    <td><%= seller.createdAt.toLocaleDateString() %></td>
+                    <td>
+                      <% if (!seller.isApproved) { %>
+                        <form action="/admin/seller/approve/<%= seller._id %>" method="POST" class="d-inline">
+                          <button class="btn btn-success btn-sm" onclick="return confirm('Approve this seller?')">Approve</button>
+                        </form>
+                        <form action="/admin/seller/reject/<%= seller._id %>" method="POST" class="d-inline">
+                          <button class="btn btn-warning btn-sm" onclick="return confirm('Reject this seller?')">Reject</button>
+                        </form>
+                      <% } %>
+                      <form action="/admin/user/delete/<%= seller._id %>" method="POST" class="d-inline">
+                        <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this seller?')">Delete</button>
+                      </form>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          <% } else { %>
+            <div class="text-center text-muted">No sellers found.</div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- Buyers Section -->
+      <div class="card">
+        <div class="card-header bg-secondary text-white">
+          <h3 class="card-title">Buyers</h3>
+        </div>
+        <div class="card-body">
+          <% if (buyers.length > 0) { %>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Registered On</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% buyers.forEach((buyer, index) => { %>
+                  <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= buyer.name %></td>
+                    <td><%= buyer.email %></td>
+                    <td><%= buyer.phone %></td>
+                    <td><%= buyer.createdAt.toLocaleDateString() %></td>
+                    <td>
+                      <form action="/admin/user/delete/<%= buyer._id %>" method="POST" class="d-inline">
+                        <button class="btn btn-danger btn-sm" onclick="return confirm('Delete this buyer?')">Delete</button>
+                      </form>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          <% } else { %>
+            <div class="text-center text-muted">No buyers found.</div>
+          <% } %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<%- include('./footer.ejs') %>

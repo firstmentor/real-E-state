@@ -1,0 +1,610 @@
+<%- include('./header.ejs') %>
+
+	<!-- Page Title -->
+	<section class="page-title" style="background-image: url(https://www.deutschebank.co.in/dam/india/bannerimages/loan_against_property_pb_deskbanner_bg.jpg);background-size: cover;">
+		<div class="page-title_cloud" style="background-image:url(assets/images/icons/cloud.png)"></div>
+		<div class="page-title_cloud-two" style="background-image:url(assets/images/icons/cloud-1.png)"></div>
+		<div class="page-title_pattern" style="background-image:url(assets/images/background/pattern-3.png)"></div>
+		<div class="page-title_gradient"></div>
+		<div class="auto-container">
+			<h2>Property Detail</h2>
+			<ul class="bread-crumb clearfix">
+				<li><a href="index.html"><i class="fa-solid fa-house fa-fw"></i> Home</a></li>
+				<li>Property Detail</li>
+			</ul>
+		</div>
+	</section>
+	<!-- End Page Title -->
+
+	<!-- Sidebar Page Container -->
+	<div class="sidebar-page-container">
+		<div class="auto-container">
+			<div class="row clearfix">
+
+				<!-- Content Side -->
+				<div class="content-side col-lg-8 col-md-12 col-sm-12">
+					<!-- Property Detail -->
+					<div class="property-detail">
+						<div class="property-detail_inner">
+							<div class="property-detail_image">
+								<img src="<%= p.image.url %>" alt="" />
+							</div>
+							<div class="property-detail_content">
+								<ul class="property-detail_meta d-flex align-items-center flex-wrap">
+									<i>Featuerd</i>
+									<li><span class="icon fa-regular fa-user fa-fw"></span>
+										<%= new Date(p.createdAt).toLocaleDateString("en-IN") %>%>
+									</li>
+									<li><span class="icon fa-regular fa-comment-dots fa-fw"></span>03 Comments</li>
+								</ul>
+								<h3 class="property-detail_heading">Best House for living with family member</h3>
+								<div class="property-detail_location"><i class="flaticon-maps-and-flags"></i>
+									<%= p.address %>
+								</div>
+								<p>
+									<%= p. discreption %>
+								</p>
+								<!-- <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam  hendrerit urna. Pellentesque sit amet sapien  mattis ligula consectetur, ultrices Maecenas</p> -->
+								<h4 class="property-detail_subheading">Properties Details</h4>
+								<div class="propert-info" style=" box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);">
+									<div class="row clearfix" >
+										<!-- Column -->
+										<div class="column col-lg-6 col-md-12 col-sm-12">
+											<ul class="propert-info_list">
+												<li>Property ID<span>
+														<%= p._id %>
+													</span></li>
+												<li>Name<span>
+														<%= p.name %>
+													</span></li>
+												<li>Rooms<span>
+														<%= p.bedrooms %>
+													</span></li>
+												<li>Area<span>
+														<%= p.squarefit %>
+													</span></li>
+												<li>Destination<span>
+														<%= p.address %>
+													</span></li>
+												<li>Beds<span>
+														<%= p.beds %>
+													</span></li>
+
+												<!-- <li>Year Built<span>2020</span></li> -->
+											</ul>
+										</div>
+										<!-- Column -->
+										<div class="column col-lg-6 col-md-12 col-sm-12">
+											<ul class="propert-info_list">
+
+												<li>Price<span>
+														<%= p.price %>
+													</span></li>
+												<li>Status<span>
+														<%= p.status %>
+													</span></li>
+												<li>City<span>
+														<%= p.city %>
+													</span></li>
+												<li>State<span>
+														<%= p.state %>
+													</span></li>
+
+											</ul>
+										</div>
+									</div>
+								</div>
+								<h4 class="property-detail_subheading">Facts and Features</h4>
+								<div class="row clearfix">
+
+									<!-- Property Block Two -->
+									<div class="property-block_two col-lg-4 col-md-4 col-sm-6">
+										<div class="property-block_two-inner" style=" box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);">
+											<div class="property-block_two-icon flaticon-double-bed"></div>
+											<h6 class="property-block_two-title">Total Bed Count</h6>
+											<div class="property-block_two-text">
+												<%= p.beds %>
+											</div>
+										</div>
+									</div>
+
+									<!-- Property Block Two -->
+									<div class="property-block_two col-lg-4 col-md-4 col-sm-6">
+										<div class="property-block_two-inner" style=" box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);">
+											<div class="property-block_two-icon flaticon-bath-tub"></div>
+											<h6 class="property-block_two-title">Total Bathrooms Count</h6>
+											<div class="property-block_two-text">
+												<%=p.bedrooms %>
+											</div>
+										</div>
+									</div>
+
+									<!-- Property Block Two -->
+									<div class="property-block_two col-lg-4 col-md-4 col-sm-6" >
+										<div class="property-block_two-inner" style=" box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);">
+											<div class="property-block_two-icon flaticon-scale"></div>
+											<h6 class="property-block_two-title">Total Area Size</h6>
+											<div class="property-block_two-text">
+												<%= p.squarefit %>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<h4 class="property-detail_subheading">Floor Plans</h4>
+								<div class="gallery-box">
+									<div class="single-item_slider swiper-container">
+										<div class="swiper-wrapper">
+
+											<!-- Slide -->
+											<div class="swiper-slide">
+												<div class="image">
+													<img src="https://twentyandoak.com/TwentyOak/media/Inspiration/4%20Benefits%20of%20Installing%20Waterproof%20Flooring%20in%20Yo/The%20Best%20Type%20of%20Flooring%20for%20a%20Rental%20Property/Impact-in-Sea-Breeze.png"
+														alt="" />
+												</div>
+											</div>
+
+											<!-- Slide -->
+											<div class="swiper-slide">
+												<div class="image">
+													<img src="https://twentyandoak.com/TwentyOak/media/Inspiration/4%20Benefits%20of%20Installing%20Waterproof%20Flooring%20in%20Yo/The%20Best%20Type%20of%20Flooring%20for%20a%20Rental%20Property/Impact-in-Sea-Breeze.png"
+														alt="" />
+												</div>
+											</div>
+
+											<!-- Slide -->
+											<div class="swiper-slide">
+												<div class="image">
+													<img src="https://twentyandoak.com/TwentyOak/media/Inspiration/4%20Benefits%20of%20Installing%20Waterproof%20Flooring%20in%20Yo/The%20Best%20Type%20of%20Flooring%20for%20a%20Rental%20Property/Impact-in-Sea-Breeze.png"
+														alt="" />
+												</div>
+											</div>
+
+										</div>
+										<div class="single-item_slider-prev fas fa-angle-left fa-fw"></div>
+										<div class="single-item_slider-next fas fa-angle-right fa-fw"></div>
+									</div>
+								</div>
+								<h4 class="property-detail_subheading">Properties Amenities</h4>
+								<!-- <p>Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam  hendrerit urna. Pellentesque sit amet sapien  mattis ligula consectetur, ultrices Maecenas</p> -->
+								<div class="property-detail_checks" style=" box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);">
+									<div class="row clearfix" >
+										<!-- Column -->
+										<div class="column col-lg-4 col-md-4 col-sm-6">
+											<ul class="property-detail_checklist">
+												<li><i class="flaticon-checked"></i>Air Condition</li>
+												<li><i class="flaticon-checked"></i>Gym Faucitis</li>
+												<li><i class="flaticon-checked"></i>Swimming Pool</li>
+												<li><i class="flaticon-checked"></i>High Speed Wifi</li>
+											</ul>
+										</div>
+										<!-- Column -->
+										<div class="column col-lg-4 col-md-4 col-sm-6">
+											<ul class="property-detail_checklist">
+												<li><i class="flaticon-checked"></i>Recreation Center</li>
+												<li><i class="flaticon-checked"></i>Microwave</li>
+												<li><i class="flaticon-checked"></i>Basketball Cout</li>
+												<li><i class="flaticon-checked"></i>Fire Protection</li>
+											</ul>
+										</div>
+										<!-- Column -->
+										<div class="column col-lg-4 col-md-4 col-sm-6">
+											<ul class="property-detail_checklist">
+												<li><i class="flaticon-checked"></i>Refrigerator</li>
+												<li><i class="flaticon-checked"></i>Window Covering</li>
+												<li><i class="flaticon-checked"></i>Car Washer</li>
+												<li><i class="flaticon-checked"></i>24/7 CC Tv</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<h4 class="property-detail_subheading">Properties Gallery</h4>
+								<div class="carousel-box">
+									<div class="single-item_slider swiper-container">
+										<div class="swiper-wrapper">
+
+											<!-- Slide -->
+											<div class="swiper-slide">
+												<div class="image">
+													<img src="assets/images/resource/property-8.jpg" alt="" />
+												</div>
+											</div>
+
+											<!-- Slide -->
+											<div class="swiper-slide">
+												<div class="image">
+													<img src="assets/images/resource/property-8.jpg" alt="" />
+												</div>
+											</div>
+
+											<!-- Slide -->
+											<div class="swiper-slide">
+												<div class="image">
+													<img src="assets/images/resource/property-8.jpg" alt="" />
+												</div>
+											</div>
+
+										</div>
+										<div class="single-item_slider-prev fas fa-angle-left fa-fw"></div>
+										<div class="single-item_slider-next fas fa-angle-right fa-fw"></div>
+									</div>
+								</div>
+								<h4 class="property-detail_subheading">Properties Location</h4>
+								<div class="map-box">
+									<iframe
+										src="https://maps.google.com/maps?q=636+5th+Ave%2C+New+York&t=&z=18&ie=UTF8&iwloc=&output=embed"></iframe>
+								</div>
+								<!-- <h4 class="property-detail_subheading">Properties Video</h4> -->
+								<!-- <div class="video-box">
+									<img src="assets/images/resource/property-9.jpg" alt="" />
+									<a href="https://www.youtube.com/watch?v=kxPCFljwJws" class="lightbox-video overlay-box"><span class="fa-solid fa-play fa-fw"><i class="ripple"></i></span></a>
+								</div> -->
+
+								<!-- Comment Form -->
+								<div class="comment-form_outer">
+									<div class="group-title">
+										<h3>LEAVE A COMMENT</h3>
+									</div>
+									<!-- Comment Form -->
+									<div class="comment-form" style=" box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);">
+										<form method="post" action="blog.html" >
+											<div class="row clearfix">
+
+												<div class="col-lg-6 col-md-6 col-sm-12 form-group">
+													<i class="flaticon-user"></i>
+													<input type="text" name="username" placeholder="Full Name"
+														required="">
+												</div>
+
+												<div class="col-lg-6 col-md-6 col-sm-12 form-group">
+													<i class="flaticon-mail"></i>
+													<input type="text" name="email" placeholder="Email Address"
+														required="">
+												</div>
+
+												<div class="col-lg-12 col-md-12 col-sm-12 form-group">
+													<textarea class="" name="message"
+														placeholder="Type Here..."></textarea>
+												</div>
+
+												<div class="col-lg-12 col-md-12 col-sm-12 form-group">
+													<!-- Button Box -->
+													<button type="submit" class="theme-btn btn-style-one">
+														<span class="btn-wrap">
+															<span class="text-one">Comment Now</span>
+															<span class="text-two">Comment Now</span>
+														</span>
+													</button>
+												</div>
+
+											</div>
+										</form>
+									</div>
+									<!-- End Comment Form -->
+								</div>
+								<!--End Comment Form -->
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+
+				<!-- Sidebar Side -->
+				<div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
+					<aside class="sidebar">
+						<div class="sidebar-inner" style=" box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);">
+
+							<!-- Search Widget -->
+							<div class="sidebar-widget search-box">
+								<div class="widget-content">
+									<h5 class="sidebar-widget_title">Search Here</h5>
+									<form method="post" action="contact.html">
+										<div class="form-group">
+											<input type="search" name="search-field" value="" placeholder="Search..."
+												required>
+											<button type="submit"><span class="icon fa fa-search"></span></button>
+										</div>
+									</form>
+								</div>
+							</div>
+
+							<!-- About Widget -->
+
+
+							<!-- Message Widget -->
+							<div class="sidebar-widget message-widget">
+								<div class="widget-content">
+									<h5 class="sidebar-widget_title">Message for Book</h5>
+									<% if(success.length>0){ %>
+										<div class="alert alert-success">
+											<%= success %>
+										</div>
+
+										<% } %>
+											<% if(error.length>0){ %>
+												<div class="alert alert-danger">
+													<%= error %>
+												</div>
+
+												<% } %>
+													<div class="message-form">
+														<form method="post" action="/bookProperty">
+
+															<input type="hidden" name="propertyId" value="<%= p._id %>">
+
+															<!-- Form Group -->
+															<div class="form-group">
+																<input type="text" name="name" placeholder="Name*"
+																	required <%=!user ? 'disabled' : '' %>
+																>
+															</div>
+
+															<!-- Form Group -->
+															<div class="form-group">
+																<input type="text" name="phone" placeholder="phone*"
+																	required <%=!user ? 'disabled' : '' %>
+																>
+															</div>
+
+															<!-- Form Group -->
+															<div class="form-group">
+																<textarea required name="message" placeholder="Message"
+																	<%=!user ? 'disabled' : '' %>>
+																</textarea>
+															</div>
+
+															<!-- Button -->
+															<div class="form-group">
+																<% if (user) { %>
+																	<% if (alreadyBooked) { %>
+																		<button type="button"
+																			class="theme-btn btn-style-one w-100"
+																			disabled>
+																			<span class="btn-wrap">
+																				<span class="text-one">Already
+																					Booked</span>
+																				<span class="text-two">Already
+																					Booked</span>
+																			</span>
+																		</button>
+																		<% } else { %>
+																			<button type="submit"
+																				class="theme-btn btn-style-one w-100">
+																				<span class="btn-wrap">
+																					<span class="text-one">Send
+																						Message</span>
+																					<span class="text-two">Send
+																						Message</span>
+																				</span>
+																			</button>
+																			<% } %>
+																				<% } else { %>
+																					<a href="\login"
+																						class="theme-btn btn-style-one w-100">
+																						<span
+																							class="btn-wrap text-center">
+																							<span
+																								class="text-one">Login</span>
+																							<span
+																								class="text-two">Login</span>
+																						</span>
+																					</a>
+																					<% } %>
+															</div>
+                                                        </form>	
+
+													</div>
+								</div><br><br>
+
+								<!-- Post Widget -->
+								<div class="sidebar-widget post-widget">
+									<div class="widget-content">
+										<h5 class="sidebar-widget_title">Popular Post</h5>
+										<% properties.forEach((property)=> { %>
+											<div class="post">
+												<div class="thumb"><a href="blog-detail.html"><img
+															src="<%= property.image.url %>" alt=""></a></div>
+												<h6><a href="/propertydetail/<%= property.name %>">
+														<%= property.name %>
+													</a></h6>
+												<div class="post-date"><i><img src="" alt="" /></i>
+										         <%= new Date(property.createdAt).toLocaleDateString("en-IN") %>%>
+													
+												</div>
+
+
+											</div>
+											<%}) %>
+
+									</div>
+								</div>
+
+								<!-- Service Widget -->
+								<div class="sidebar-widget category-widget">
+									<div class="widget-content">
+										<h5 class="sidebar-widget_title">Categories</h5>
+										<ul class="service-list">
+											<% c.forEach((c)=> { %>
+
+												<li><a href="#">
+														<%=c.title %>
+													</a></li>
+
+
+												<%}) %>
+
+										</ul>
+									</div>
+								</div>
+
+								<!-- Popular Tags -->
+								<div class="sidebar-widget popular-tags">
+									<div class="widget-content">
+										<h5 class="sidebar-widget_title">Popular Tags</h5>
+										<a href="#">Investing</a>
+										<a href="#">Legal</a>
+										<a href="#">Design</a>
+										<a href="#">Sustainability</a>
+									</div>
+								</div>
+
+							</div>
+					</aside>
+				</div>
+
+			</div>
+		</div>
+	</div>
+	<!-- login  -->
+	<div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form action="/verifyLogin" method="post">
+						<input type="hidden" class="form-control" name="role" value="user">
+						<div class="mb-3">
+							<label for="">Email:</label>
+							<input type="email" class="form-control" name="email" placeholder="Enter your email"
+								required>
+						</div>
+						<div class="mb-3">
+							<label for="">Password</label>
+							<input type="password" class="form-control" name="password"
+								placeholder="Enter your password" required>
+
+						</div>
+
+
+
+						<button type="submit" class="btn btn-primary w-100">Login</button>
+						<div>
+							I don't have any account <a href="#" data-bs-toggle="modal"
+								data-bs-target="#register">Register</a>
+							<a href="/forgotpassword" class="float-end">Forgot Password?</a>
+						</div>
+
+
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<!--register -->
+	<div class="modal fade" id="register" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Register</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form action="/userInsert" method="post">
+						<div class="mb-3">
+							<label for="">Name:</label>
+							<input type="text" class="form-control" name="name" placeholder="Enter your name" required>
+						</div>
+						<div class="mb-3">
+							<label for="">Email:</label>
+							<input type="email" class="form-control" name="email" placeholder="Enter your email"
+								required>
+						</div>
+						<div class="mb-3">
+							<label for="">Password</label>
+							<input type="password" class="form-control" name="password"
+								placeholder="Enter your password" required>
+
+						</div>
+						<div class="mb-3">
+							<label for="">Phone No:</label>
+							<input type="number" class="form-control" name="phone"
+								placeholder="Enter your mobile number" required>
+						</div>
+
+
+
+						<button type="submit" class="btn btn-primary w-100">Login</button>
+						<div>I have already an account <a href="/register">Login</a>
+							<a href="/forgotpassword" class="float-end">Forgot Password?</a>
+						</div>
+
+
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Forgotpassword  -->
+	<div class="modal fade" id="login" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Login</h1>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<form action="/verifyLogin" method="post">
+						<input type="hidden" class="form-control" name="role" value="admin">
+						<div class="mb-3">
+							<label for="">Email:</label>
+							<input type="email" class="form-control" name="email" placeholder="Enter your email"
+								required>
+						</div>
+						<div class="mb-3">
+							<label for="">New Password</label>
+							<input type="password" class="form-control" name="password"
+								placeholder="Enter your password" required>
+
+						</div>
+
+
+
+						<button type="submit" class="btn btn-primary w-100">Forgot Password</button>
+						<div>
+							I don't have any account <a href="#" data-bs-toggle="modal"
+								data-bs-target="#register">Register</a>
+							<a href="/login" class="float-end">Login</a>
+						</div>
+
+
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const urlParams = new URLSearchParams(window.location.search);
+
+			if (urlParams.get('showLoginModal') === 'true') {
+				const loginModal = new bootstrap.Modal(document.getElementById('login'));
+				loginModal.show();
+
+				// Optional: Show message
+				setTimeout(() => {
+					const message = document.createElement('div');
+					message.className = 'alert alert-success text-center mt-2';
+					message.innerText = 'Registration successful. Please login.';
+					document.querySelector('#login .modal-body').prepend(message);
+				}, 200);
+			}
+		});
+	</script>
+
+	<%- include('./footer.ejs') %>

@@ -1,0 +1,61 @@
+<%- include('./navbar.ejs') %>
+<%- include('./sidebar.ejs') %>
+
+<div class="content-wrapper">
+  <div class="content-header">
+    <div class="container-fluid">
+      <h1 class="m-0 text-dark">User Profile</h1>
+      <hr style="color: #007bff;">
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="container-fluid">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h5 class="m-0">Profile Details</h5>
+        </div>
+        <div class="card-body">
+          <table class="table table-bordered table-striped">
+            <tbody>
+  <tr>
+    <th style="width: 30%;">Full Name</th>
+    <td><%= user.name %></td>
+  </tr>
+  <tr>
+    <th>Email</th>
+    <td><%= user.email %></td>
+  </tr>
+  <tr>
+    <th>Phone</th>
+    <td><%= user.phone %></td>
+  </tr>
+  <!-- <tr>
+    <th>Address</th>
+    <td><%= user.address %></td>
+  </tr>
+  <tr>
+    <th>Join Date</th>
+    <td><%= user.joinDate %></td>
+  </tr> -->
+  <tr>
+    <th>Status</th>
+    <td>
+      <% if (user.status === 'active') { %>
+        <span class="btn btn-success btn-lg">Active</span>
+      <% } else { %>
+        <span class="btn btn-danger btn-lg">Inactive</span>
+      <% } %>
+    </td>
+  </tr>
+</tbody>
+
+          </table>
+          <a href="/dashboard" class="btn btn-secondary mt-3">Back to Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('./footer.ejs') %>

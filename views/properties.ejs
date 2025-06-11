@@ -1,0 +1,88 @@
+<%- include('./header.ejs')  %>
+<!-- Mobile Menu  -->
+<div class="mobile-menu">
+    <div class="menu-backdrop"></div>
+    <div class="close-btn"><span class="icon flaticon-close-1"></span></div>
+    
+    <nav class="menu-box">
+        <div class="nav-logo"><a href="index.html"><img src="assets/images/logo.svg" alt="" title=""></a></div>
+        <div class="menu-outer"><!--Here Menu Will Come Automatically Via Javascript / Same Menu as in Header--></div>
+    </nav>
+</div>
+<!-- End Mobile Menu -->
+
+</header>
+<!-- End Main Header -->
+
+<!-- Page Title -->
+<section class="page-title" style="	background-image: url(https://png.pngtree.com/thumb_back/fh260/background/20250327/pngtree-a-wooden-home-shape-key-ring-hanging-from-an-open-window-image_17144531.jpg);background-size: cover;">
+<div class="page-title_cloud" style="background-image:url(assets/images/icons/cloud.png)"></div>
+<div class="page-title_cloud-two" style="background-image:url(assets/images/icons/cloud-1.png)"></div>
+<div class="page-title_pattern" style="background-image:url()"></div>
+<div class="page-title_gradient"></div>
+<div class="auto-container">
+    <h2>Properties</h2>
+    <ul class="bread-crumb clearfix">
+        <li><a href="index.html"><i class="fa-solid fa-house fa-fw"></i> Home</a></li>
+        <li>Properties</li>
+    </ul>
+</div>
+</section>
+<!-- End Page Title -->
+
+<!-- Property One -->
+<section class="property-three">
+<div class="auto-container">
+    <div class="row clearfix">
+        <% properties.forEach((item)=>{ %>
+            <!-- Property Block One -->
+        <div class="property-block_one style-three col-lg-4 col-md-6 col-sm-12">
+            <div class="property-block_one-inner wow fadeInLeft" data-wow-delay="0ms" data-wow-duration="1500ms" style=" box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);">
+                <div class="property-block_one-image">
+                    <div class="property-block_one-title">Featuerd</div>
+                    <a href="/propertydetail/<%=item._id %>"><img src="<%= item.image.url %>" alt="" /></a>
+                </div>
+                <div class="property-block_one-content">
+                    <div class="property-block_one-location"><i class="flaticon-maps-and-flags"></i><%= item.address %></div>
+                    <h4 class="property-block_one-heading"><a href="/propertydetail/<%=item._id %>"></a><%= item.name %></h4>
+                    <ul class="property-block_one-info">
+                        <li><span><img src="assets/images/icons/bed.svg" alt="" /></span><%= item.beds %></li>
+                        <li><span><img src="assets/images/icons/bath.svg" alt="" /></span><%= item.bedrooms %></li>
+                        <li><span><img src="assets/images/icons/square.svg" alt="" /></span><%= item.squarefit %></li>
+                    </ul>
+                    <div class="d-flex justify-content-between align-items-center flex-wrap">
+                        <div class="property-block_one-price"><%= item.price %></div>
+                        <a class="property-block_one-heart" href="property-detail.html"><img src="assets/images/icons/heart.svg" alt="" /></a>
+                    </div>
+                    <div class="property-block_one_button">
+						<a href="/propertydetail/<%=item._id %>" class="theme-btn btn-style-one" alt="<%=item.image.url %>">
+							<span class="btn-wrap">
+								<span class="text-one">View Details</span>
+								<span class="text-two">View Details</span>
+						    </span>
+						</a>
+					</div>
+                </div>
+            </div>
+        </div>
+
+        <% }) %>
+        
+        
+    
+        
+    </div>
+    
+    <!-- Styled Pagination -->
+    <ul class="styled-pagination text-center">
+        <li><a href="#" class="active">1</a></li>
+        <li><a href="#">2</a></li>
+        <li><a href="#">3</a></li>
+        <li class="next"><a href="#"><span class="fa-solid fa-angle-right fa-fw"></span></a></li>
+    </ul>
+    <!-- End Styled Pagination -->
+    
+</div>
+</section>
+<!-- End Property Three -->
+<%- include('./footer.ejs')  %>

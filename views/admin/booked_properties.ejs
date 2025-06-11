@@ -1,0 +1,64 @@
+<%- include('./navbar.ejs') %>
+<%- include('./sidebar.ejs') %>
+
+<div class="content-wrapper">
+  <div class="content-header">
+    <div class="container-fluid">
+      <h1 class="m-0">Booked Properties</h1>
+      <hr />
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="container-fluid">
+      <% if (error && error.length > 0) { %>
+        <div class="alert alert-danger"><%= error %></div>
+      <% } %>
+      <% if (success && success.length > 0) { %>
+        <div class="alert alert-success"><%= success %></div>
+      <% } %>
+
+      <div class="card">
+        <div class="card-header bg-dark text-white">
+          <h3 class="card-title">All Bookings</h3>
+        </div>
+        <div class="card-body">
+          <% if (bookings.length > 0) { %>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Property</th>
+                  <th>Booked By</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Booking Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% bookings.forEach((booking, index) => { %>
+                  <tr>
+                    <td><%= index + 1 %></td>
+                    <td><%= booking.propertyId?.title || 'N/A' %></td>
+                    <td><%= booking.userId?.name || 'N/A' %></td>
+                    <td><%= booking.userId?.email || 'N/A' %></td>
+                    <td><%= booking.userId?.phone || 'N/A' %></td>
+                    <td><%= booking.createdAt.toLocaleDateString() %></td>
+                    <td>
+                      <span class="badge bg-success">Booked</span>
+                    </td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          <% } else { %>
+            <div class="text-center text-muted">No bookings found.</div>
+          <% } %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('./footer.ejs') %>

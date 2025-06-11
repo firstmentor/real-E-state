@@ -1,0 +1,194 @@
+<%- include('./navbar.ejs') %>
+  <%- include('./sidebar.ejs') %>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Book Properties</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Book Properties</a></li>
+                <li class="breadcrumb-item active">Book Properties Page</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      <div class="content">
+        <div class="container-fluid">
+
+          <div class="card">
+            <div class="card-header">
+
+
+              <!-- <h3 class="card-title">DataTable with default features</h3> -->
+              <!-- <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-default">
+                Add Contact
+              </button> -->
+              <br><br>
+
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    <th>User Name</th>
+                    <th>User Email</th>
+                    <th>Phone</th>
+                    <th>Property Title</th>
+                    <th>Message</th>
+                    <th>Booked At</th>
+                    <th>Action</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+                  <% properties.forEach((item, index)=> { %>
+                    <tr>
+                      <td>
+                        <%= item.user?.name %>
+                      </td>
+                      <td>
+                        <%= item.user?.email %>
+                      </td>
+                      <td>
+                        <%= item.phone %>
+                      </td>
+                      <td>
+                        <%= item.property?.name %>
+                      </td>
+                      <td>
+                        <%= item.message %>
+                      </td>
+                      <td>
+                        <%= item.bookedAt.toLocaleDateString() %>
+                      </td>
+
+                      <td>
+                        <form action="/admin/deleteBookProperty/<%= item._id %>" method="post" style="display: inline;">
+                          <button type="submit" class="btn btn-danger btn-sm"
+                            onclick="return confirm('Are you sure you want to delete this booking?');">
+                            <i class="fas fa-trash"></i> Delete
+                          </button>
+                        </form>
+
+                        <!-- View Button -->
+                        <button type="button" class="btn btn-info btn-sm" data-toggle="modal"
+                          data-target="#viewModal<%= index %>">
+                          <i class="fas fa-eye"></i> View
+                        </button>
+                      </td>
+                    </tr>
+                    <!-- Modal -->
+                    <div class="modal fade" id="viewModal<%= index %>" tabindex="-1" role="dialog"
+                      aria-labelledby="viewModalLabel<%= index %>" aria-hidden="true">
+                      <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title" id="viewModalLabel<%= index %>">Booked Property Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <p>
+                              <!-- <strong>Image:</strong> -->
+                              <img src="<%= item.property?.image.url %>" alt="" width="100%" height="300">
+                            </p>
+                            <p><strong>Property Name:</strong>
+                              <%= item.property?.name %>
+                            </p>
+                            <p><strong>Price:</strong>
+                              <%= item.property?.price %>
+                            </p>
+                            <p><strong>Discreption:</strong>
+                              <%= item.property?.discreption %>
+                            </p>
+                            <p><strong>Property Category:</strong>
+                              <%= item.property?.category %>
+                            </p>
+                            <p><strong>Address:</strong>
+                              <%= item.property?.address %>
+                            </p>
+                            <p><strong>City:</strong>
+                              <%= item.property?.city %>
+                            </p>
+                            <p><strong>State:</strong>
+                              <%= item.property?.state %>
+                            </p>
+                            <p><strong>Booked At:</strong>
+                              <%= item.bookedAt.toLocaleString() %>
+                            </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% }) %>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <th>User Name</th>
+                    <th>User Email</th>
+                    <th>Phone</th>
+                    <th>Property Title</th>
+                    <th>Message</th>
+                    <th>Booked At</th>
+                    <th>Action</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- <div class="modal-header">
+            <h4 class="modal-title">Add Category</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div> -->
+          <!-- <div class="modal-body">
+            <form action="/insertCategory" method="post">
+              <div class="form-group">
+                <label for="">Title</label>
+                <input type="text" class="form-control" name="title" required>
+              </div>
+              <button type="submit" class="btn btn-info">Submit</button>
+            </form>
+            <p>One fine body&hellip;</p>
+          </div> -->
+          <!-- <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+    <%- include('./footer.ejs') %>

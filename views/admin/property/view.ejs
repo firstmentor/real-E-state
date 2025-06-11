@@ -1,0 +1,56 @@
+<%- include('../navbar.ejs') %>
+<%- include('../sidebar.ejs') %>
+
+<!-- Content Wrapper -->
+<div class="content-wrapper">
+  <!-- Page Header -->
+  <div class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2 align-items-center">
+        <div class="col-sm-6">
+          <h1 class="m-0 text-dark">View Property Details</h1>
+        </div>
+        <div class="col-sm-6">
+          <ol class="breadcrumb float-sm-right">
+            <li class="breadcrumb-item"><a href="#">view Details</a></li>
+            <li class="breadcrumb-item active">Details</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content">
+    <div class="container-fluid">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <div class="row">
+            <!-- Property Image -->
+            <div class="col-md-5 mb-3">
+              <img src="<%= p.image.url %>" alt="Property Image" class="img-fluid rounded shadow-sm" style="width: 100%; height: 400px;; object-fit: cover;max-height: 400px;" >
+            </div>
+
+            <!-- Property Info -->
+            <div class="col-md-7">
+              <h3 class="mb-3 text-primary text-center"><%= p.name %></h3>
+              <hr>
+              <p><strong>Price:</strong> ₹<%= p.price %></p>
+              <p><strong>Square Feet:</strong> <%= p.squarefit %> sq.ft</p>
+              <p><strong>Bathrooms:</strong> <%= p.bedrooms %></p>
+              <p><strong>Beds:</strong> <%= p.beds %></p>
+              <p><strong>Category:</strong> <%= p.category %></p>
+              <p><strong>Address:</strong> <%= p.address %></p>
+              <p><strong>City:</strong> <%= p.city %></p>
+              <p><strong>State:</strong> <%= p.state %></p>
+              <p><strong>Description:</strong> <%= p.discreption %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%- include('../footer.ejs') %>

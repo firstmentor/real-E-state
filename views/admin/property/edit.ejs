@@ -1,0 +1,142 @@
+<%- include('../navbar.ejs') %>
+  <%- include('../sidebar.ejs') %>
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">property Edit</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">property</a></li>
+                <li class="breadcrumb-item active">property Edit</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      <div class="content">
+        <div class="container-fluid">
+
+          <div class="card">
+            <div class="card-header">
+
+
+             
+            <!-- /.card-header -->
+            <div class="card-body">
+                <form
+            action="/admin/propertyUpdate/<%= d.id %>"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="form-group">
+              <label for="">Property Name</label>
+              <input
+                type="text"
+                name="name"
+                class="form-control"
+                value="<%= d.name %>"
+                required
+              />
+              <label for="">Price</label>
+              <input
+                type="text"
+                name="price"
+                class="form-control"
+                value="<%= d.price %>"
+                required
+              />
+              <label for="">Discreption</label>
+              <input
+                type="text"
+                name="discreption"
+                class="form-control"
+                value="<%= d.discreption %>"
+                required
+              />
+               <label for="">Select Category</label>
+            <select name="category" id="" class="form-control">
+              <option value="">select category</option>             
+              <option value="1BHK">1BHK</option>
+              <option value="2BHK">2BHK</option>
+              <option value="3BHK">3BHK</option>
+              <option value="4BHK">4BHK</option>
+
+            </select>
+              <label for="">Address</label>
+              <input
+                type="text"
+                name="address"
+                class="form-control"
+                value="<%= d.address %>"
+                required
+              />
+              <label for="">City</label>
+              <input
+                type="text"
+                name="city"
+                class="form-control"
+                value="<%= d.city %>"
+                required
+              />
+              <label for="">State</label>
+              <input
+                type="text"
+                name="state"
+                class="form-control"
+                value="<%= d.state %>"
+                required
+              />
+               <label for="">Bathrooms</label>
+                <input type="text" name="bedrooms" class="form-control"
+                value="<%= d.bedrooms %>" />
+                <label for="">Beds</label>
+                <input type="text" name="beds" class="form-control" 
+                value="<%= d.beds %>"/>
+                <label for="">SquareFit</label>
+                <input type="text" name="squarefit" class="form-control" 
+                value="<%= d.squarefit %>"/>
+              <label for="">Image</label>
+              <input
+                type="file"
+                name="image"
+                class="form-control"
+                value="<%= d.image %>"
+                required
+              />
+              <center>
+                <button class="btn btn-info mt-3" type="submit" >Update</button>
+              </center>
+            </div>
+          </form>
+
+                
+        
+
+             
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+
+ </div>
+    <%- include('../footer.ejs') %>
+
+
+    

@@ -1,0 +1,124 @@
+<%- include('../navbar.ejs') %>
+  <%- include('../sidebar.ejs') %>
+
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <div class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1 class="m-0 text-dark">Contact</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Contact</a></li>
+                <li class="breadcrumb-item active">Contact Page</li>
+              </ol>
+            </div><!-- /.col -->
+          </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content-header -->
+
+      <!-- Main content -->
+      <div class="content">
+        <div class="container-fluid">
+
+          <div class="card">
+            <div class="card-header">
+              <% if(success.length >0){ %>
+              <div class="alert alert-success"><%= success %></div>
+              <% } %>
+              <br>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                  <tr>
+                    
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Message</th>
+                    <th>Action</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <% con.forEach((item)=>{ %>
+                  <tr>
+                    
+                    <td><%= item.name %></td>
+                    <td><%= item.email %></td>
+                    <td><%= item.phone %></td>
+                    <td><%= item.message %></td>
+                    <td>                                            
+                      <!-- <a href="/editcontact/<%= item._id %>" class="btn btn-success">Edit</a> -->
+                      <a href="/deletecontact/<%= item._id %>" class="btn btn-danger">
+                        <i class="fa-solid fa-trash"></i>
+                      </a>
+                    </td>
+                  </tr>
+
+                <% }) %>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Message</th>
+                    <th>Action</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+        </div><!-- /.container-fluid -->
+      </div>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add Category</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="/insertCategory" method="post">
+              <div class="form-group">
+                <label for="">Title</label>
+                <input type="text" class="form-control" name="title" required>
+              </div>
+              <button type="submit" class="btn btn-info">Submit</button>
+            </form>
+            <!-- <p>One fine body&hellip;</p> -->
+          </div>
+          <!-- <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Save changes</button>
+            </div> -->
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
+
+
+    
+
+    <%- include('../footer.ejs') %>
