@@ -68,6 +68,14 @@ route.get('/seller/bookings', checkAuth, Admincontroller.viewSellerBookings);
 route.get('/admin/bookings/export-excel', checkAuth, isAdmin, Admincontroller.exportBookingsExcel);
 route.get('/admin/bookings/export-pdf', checkAuth, isAdmin, Admincontroller.exportBookingsPDF);
 
+// Forget password
+route.get('/forgot-password', Admincontroller.forgotPasswordForm);
+route.post('/forgot-password', Admincontroller.forgotPassword);
+
+// Reset password
+route.get('/reset-password/:token', Admincontroller.resetPasswordForm);
+route.post('/reset-password/:token', Admincontroller.resetPassword);
+
 
 
 

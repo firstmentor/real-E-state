@@ -22,7 +22,9 @@ const userSchema = new mongoose.Schema({
    
     role: { type: String, enum: ['buyer', 'seller', 'admin'], default: 'buyer' },
     createdAt: { type: Date, default: Date.now },
-    isApproved: { type: Boolean, default: true }
+    isApproved: { type: Boolean, default: true },
+    resetToken: String,
+    resetTokenExpiry: Date
     }, { timestamps: true });
 
 const userModel = mongoose.model('user', userSchema);

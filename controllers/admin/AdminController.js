@@ -10,13 +10,16 @@ const bookingModel = require("../../models/bookProperty");
 const ExcelJS = require("exceljs");
 const PDFDocument = require("pdfkit");
 const mongoose = require("mongoose");
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+
+
 
 class AdminController {
   static dashboard = async (req, res) => {
     try {
       const { role, id } = req.user;
       console.log("USER DATA:", req.user);
-
 
       let data = {
         title: "Dashboard",
@@ -373,5 +376,107 @@ class AdminController {
       res.status(500).send("Error generating PDF");
     }
   };
+
+  // Show forgot password form
+  static forgotPasswordForm(req, res) {
+    res.render("admin/forgot-password", {
+      success: req.flash("success"),
+      error: req.flash("error"),
+    });
+  }
+  // Send reset link
+  static async forgotPassword(req, res) {
+    try {
+      const user = await userModel.findOne({ email: req.body.email });
+
+      if (!user) {
+        req.flash("error", "No user found with that email");
+        return res.redirect("/forgot-password");
+      }
+
+      const token = crypto.randomBytes(20).toString("hex");
+      user.resetToken = token;
+      user.resetTokenExpiry = Date.now() + 3600000; // 1 hour
+      await user.save();
+
+      // Send email
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+          user: process.env.MAIL_ID,
+          pass: process.env.MAIL_PASS,
+        },
+      });
+
+      const resetURL = `http://${req.headers.host}/reset-password/${token}`;
+
+      await transporter.sendMail({
+        to: user.email,
+        from: "no-reply@pninfosys.com",
+        subject: "Password Reset Request",
+        html: `<p>You requested a password reset.</p>
+               <p>Click <a href="${resetURL}">here</a> to reset your password.</p>`,
+      });
+
+      req.flash("success", "Reset link sent to your email");
+      res.redirect("/forgot-password");
+    } catch (err) {
+      console.log(err);
+      req.flash("error", "Something went wrong");
+      res.redirect("/forgot-password");
+    }
+  }
+
+  // Show reset password form
+  static async resetPasswordForm(req, res) {
+    try {
+      const user = await userModel.findOne({
+        resetToken: req.params.token,
+        resetTokenExpiry: { $gt: Date.now() },
+      });
+
+      if (!user) {
+        req.flash("error", "Token expired or invalid");
+        return res.redirect("/forgot-password");
+      }
+
+      res.render("admin/reset-password", {
+        token: req.params.token,
+        success: req.flash("success"),
+        error: req.flash("error"),
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).send("Server error");
+    }
+  }
+
+  // Handle password reset
+  static async resetPassword(req, res) {
+    try {
+      const user = await userModel.findOne({
+        resetToken: req.params.token,
+        resetTokenExpiry: { $gt: Date.now() },
+      });
+
+      if (!user) {
+        req.flash("error", "Token expired or invalid");
+        return res.redirect("/forgot-password");
+      }
+
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      user.password = hashedPassword;
+      user.resetToken = undefined;
+      user.resetTokenExpiry = undefined;
+
+      await user.save();
+      req.flash("success", "Password updated! You can now login.");
+      res.redirect("/login");
+    } catch (err) {
+      console.log(err);
+      req.flash("error", "Something went wrong");
+      res.redirect("/forgot-password");
+    }
+  }
 }
 module.exports = AdminController;
